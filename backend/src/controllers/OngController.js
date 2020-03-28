@@ -1,5 +1,6 @@
 const connection = require('../database/connection');
-const crypto = require('crypto');
+const generatedUniqueId = require('../utils/generateUniqueId');
+const id = require('crypto');
 
 module.exports = {
     async index(request, response){
@@ -12,7 +13,7 @@ module.exports = {
         //o request passa uma requisição -> buscar um id, por ex! 
         //aí faremos: const id = request.id; (o msm serve para o body)
         const {name, email, whatsapp, city, uf} = request.body;
-        const id = crypto.randomBytes(4).toString('HEX');
+        const id = generatedUniqueId();
 
         await connection('ongs').insert({
             id,
